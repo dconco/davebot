@@ -1,30 +1,38 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Agbalumo&family=Nunito&display=swap');
 body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     background: #106ab9;
-    -webkit-webkit-tap-highlight-color: transparent;
+}
+
+* {
+    scroll-behavior: smooth !important;
+    -webkit-tap-highlight-color: transparent !important;
 }
 
 header {
-    font-size: 30px;
-    font-family: 'Caveat', cursive;
+    top: 0;
     width: 100%;
     height: 130px;
+    display: flex;
+    position: sticky;
     background: linear-gradient(45deg, #0ac365, #67f4e9);
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3), inset 4px 4px 15px #0ac365, inset -4px -4px 15px #67f4e9, inset 4px 4px 3px #e6e6e6c5, inset -4px -4px 3px #e6e6e6c5, inset 2px 2px 2px #4444449a, inset -2px -2px 2px #4444449a;
 }
 
 header>img {
     width: 100px;
-    border-radius: 50%;
-    animation: movelogo 1s linear infinite;
+    height: 100px;
+    margin-left: 10px;
+    animation: movelogo 1s ease-out infinite;
 }
 
 header>h1 {
-    left: 110px;
+    font-size: 40px;
+    color: #474747;
+    margin-left: 10px;
+    font-family: 'Agbalumo', Nunito sans-serif;
 }
 
 @keyframes movelogo {
@@ -42,113 +50,115 @@ header>h1 {
 
 .container {
     width: 100%;
+    height: 100%;
+    overflow-y: auto;
 }
 
 .message {
-    position: absolute;
-    left: 0;
-    background: transparent;
-    width: 93%;
-    margin: 10px;
-    margin-top: 20px;
-    font-family: 'Nunito Sans', sans-serif;
-}
-
-.bot_message {
-    width: 200px;
-    padding: 10px;
-    background: #23e2f8;
-    border-radius: 0 20px 20px 20px;
-    margin-left: 2px;
-}
-
-.user_message {
-    width: 200px;
-    padding: 10px;
-    margin-top: 70px;
-    background: #18b873;
-    border-radius: 20px 0 20px 20px;
-    position: absolute;
-    right: 0;
+    gap: 10px;
+    width: 100%;
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 110px;
+    flex-direction: column;
 }
 
 .bot_msg {
+    width: auto;
     display: flex;
-    flex-direction: row;
-    position: absolute;
-    left: 5px;
+    max-width: 80%;
+    margin-left: 5px;
+    margin-top: 5px;
 }
 
-.bot_img img {
-    width: 45px;
-    height: 40px;
-    border-radius: 50%;
-    border-radius: 50%;
-    border: 2px solid #ddd;
-    object-fit: cover;
-    background: #19c4b2;
+.message span {
+    font-size: 18px;
+    padding: 15px 30px;
+    padding-left: 20px;
+    font-family: 'Nunito', sans-serif;
+}
+
+.bot_message {
+    background-color: #23e2f8;
+    border-radius: 0 20px 20px 20px;
+}
+
+.user_msg {
+    width: auto;
+    display: flex;
+    max-width: 70%;
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+.user_message {
+    background-color: #18b873;
+    border-radius: 20px 20px 0 20px;
+}
+
+.bot_msg img {
+    width: 50px;
+    height: 55px;
 }
 
 .input_bx {
+    left: 0;
+    bottom: 0;
     width: 100%;
     height: 100px;
-    background: linear-gradient(70deg, #10b7b9, #0fc786);
     position: fixed;
-    bottom: 0;
-    left: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+    background: linear-gradient(120deg, #10b7b9 40%, #0ac365 80%);
 }
 
 .input_bx .innerbox {
-    background: #fff;
-    width: 85%;
+    gap: 10px;
+    width: 100%;
     height: 40px;
-    border-radius: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin: 10px;
     padding: 10px;
-    transition: 1.5s;
-}
-
-.input_bx .innerbox:hover {
-    border: 4px solid #0caadfcc;
+    display: flex;
+    background: #fff;
+    border-radius: 50px;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .innerbox input {
+    height: 100%;
     border: none;
     outline: none;
-    background: transparent;
-    margin-left: -50px;
-    width: 76%;
-    height: 35px;
+    font-size: 18px;
+    font-weight: 600;
+    margin-left: 10px;
+    width: calc(100% - 50px);
+    font-family: 'Nunito', serif;
 }
 
 input::placeholder {
-    color: #474747;
-}
-
-input[type="search"] {
-    font-size: 17px;
+    color: #808080;
 }
 
 .innerbox button {
-    margin-right: -75px;
-    width: 50px;
+    width: 65px;
     height: 50px;
-    border-radius: 50%;
     border: none;
-    background: #2ec6ee;
-    transition: .4s;
-    border: 2px solid #808080;
+    outline: none;
     color: #ffff;
     font-size: 20px;
-    outline: none;
+    transition: .4s;
+    border-radius: 47%;
+    margin-right: -4px;
+    background: #2ec6ee;
+    border: 2px solid #808080;
+}
+
+.innerbox button:hover {
+    background: #0fa0c6;
 }
 
 .innerbox button:active {
     transform: scale(0.8);
-    background: #0fa0c6;
 }

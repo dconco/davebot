@@ -12,7 +12,7 @@
     <link rel="apple-touch-icon" href="img/logo.png" sizes="307x307" />
     <link rel="shortcut icon" href="img/logo.png" type="image/png" />
     <link rel="icon" type="image/png" href="img/logo.png" />
-    <meta name="theme-color" content="#3169ff" />
+    <meta name="theme-color" content="#0ac365" />
 
     <link rel="stylesheet" href="style.css" type="text/css" media="all" />
     <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
@@ -20,30 +20,26 @@
 
 <body>
     <header>
-        <img src="img/logo.png" alt="logo" />
-        <h1>Chatbot</h1>
+        <img src="img/logo.png" alt="DaveBot Icon" draggable="false" />
+        <h1>DaveBot</h1>
     </header>
-    <div class="container">
+
+    <form class="container">
         <!--MESSAGES GOES HERE-->
         <div class="message">
             <!--BOT WELCOME MESSAGE-->
             <div class="bot_msg">
-                <div class="bot_img">
-                    <img src="img/logo.png" alt="bot" />
-                </div>
-                <div class="bot_message">Hello! How can I assist you today?</div>
+                <img src="img/logo.png" draggable="false" alt="DaveBot Icon" />
+                <span class="bot_message">Hello! How can I assist you today?</span>
             </div>
 
             <!--USER WELCOME MESSAGE-->
-            <div class="user_message">Nothing much my bot friend</div>
-
-            <div class="bot_msg">
-                <div class="bot_img">
-                    <img src="img/logo.png" alt="bot" />
-                </div>
-                <div class="bot_message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae consequatur excepturi rem, quis harum temporibus nemo. Ipsum sapiente esse dolorem consequatur commodi itaque ab architecto sed exercitationem eum. Obcaecati, libero.</div>
+            <div class="user_msg">
+                <span class="user_message">Nothing much my bot friend</span>
             </div>
         </div>
+
+        <!-- SEND MESSAGES -->
         <div class="input_bx">
             <div class="innerbox">
                 <input type="text" id="type" placeholder="Send message..." />
@@ -52,7 +48,7 @@
                 </button>
             </div>
         </div>
-    </div>
+    </form>
     <script src="main.js" type="text/javascript" charset="utf-8"></script>
 </body>
 
