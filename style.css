@@ -77,8 +77,7 @@ header>h1 {
 
 .message span {
     font-size: 18px;
-    padding: 15px 30px;
-    padding-left: 20px;
+    padding: 15px 20px;
     font-family: 'Nunito', sans-serif;
 }
 
@@ -98,6 +97,12 @@ header>h1 {
 .user_message {
     background-color: #18b873;
     border-radius: 20px 20px 0 20px;
+}
+
+.msg_time {
+    float: right;
+    font-size: 12px;
+    color: #474747;
 }
 
 .bot_msg img {
@@ -151,6 +156,7 @@ input::placeholder {
     border: none;
     outline: none;
     color: #ffff;
+    cursor: pointer;
     font-size: 20px;
     transition: .4s;
     border-radius: 47%;
