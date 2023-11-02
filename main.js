@@ -35,11 +35,11 @@ Form.addEventListener('submit', async (e) => {
     let request = new Request('http://localhost:8000/server.php')
 
     // Cancel request if it takes too long
-    setTimeout(() => {
+    var timeout = setTimeout(() => {
         SendButton.Enable()
         controller.abort()
         BotMessage('Response taking too long, check your connection and try again')
-    }, 10000)
+    }, 20000)
 
 
     // Send POST Request to the Server
@@ -72,7 +72,7 @@ Form.addEventListener('submit', async (e) => {
 
         // finally after response
     } finally {
-
+        clearTimeout(timeout)
         SendButton.Enable()
     }
 })
@@ -97,7 +97,7 @@ function EnableButton() {
     const Button = document.getElementById('send-btn')
 
     Button.disabled = false
-    Button.style.cursor = 'cursor'
+    Button.style.cursor = 'pointer'
     Button.style.background = '#2ec6ee'
 }
 
@@ -178,11 +178,10 @@ function BotMessage(message) {
                 clearInterval(interval)
                 return false
             }
-        }, 80)
 
-
-        // scroll the page to the bottom
-        window.scrollTo(0, document.body.scrollHeight)
+            // scroll the page to the bottom
+            window.scrollTo(0, document.body.scrollHeight)
+        }, 50)
     }
 }
 
