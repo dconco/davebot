@@ -32,7 +32,7 @@ Form.addEventListener('submit', async (e) => {
     const controller = new AbortController()
     const signal = controller.signal
 
-    let request = new Request('http://localhost:8000/server.php')
+    let request = new Request('https://daveconcobot.000webhostapp.com/server.php')
 
     // Cancel request if it takes too long
     var timeout = setTimeout(() => {
