@@ -1,6 +1,9 @@
 const Form = document.querySelector('form')
 const MessageWrapper = document.getElementById('message-wrapper')
 
+// Bot First Message
+BotMessage('Hello! How can I assist you today?');
+
 DisableButton()
 
 const Input = document.getElementById('input')
@@ -29,23 +32,37 @@ Form.addEventListener('submit', async (e) => {
     }
 
 
-    const controller = new AbortController()
-    const signal = controller.signal
+    const url = 'http://127.0.0.1:8000/server.php'
 
-    let request = new Request('http://localhost:8000/server.php')
+    // Send a POST request
+    const response = await axios.post(url, {
+        // signal: AbortSignal.timeout(5000),
+        data: JSON.stringify({
+            message: input_value,
+            origin: location.host
+        }),
+        headers: {
+            "Content-Type": "application/json",
+        }
+    })
 
-    // Cancel request if it takes too long
-    var timeout = setTimeout(() => {
-        SendButton.Enable()
-        controller.abort()
-        BotMessage('Response taking too long, check your connection and try again')
-    }, 20000)
+    try {
+        const result = response
+
+        console.log(result)
+    } catch (error) {
+        BotMessage('There was an uncaught Error: ' + error.message)
+        console.log(error)
+    }
+
+
 
 
     // Send POST Request to the Server
-    let response = await fetch(request, {
+    /*let response = await fetch(request, {
         method: 'POST',
         signal: signal,
+        mode: 'no-cors',
         body: JSON.stringify({
             message: input_value,
             origin: location.host
@@ -74,7 +91,7 @@ Form.addEventListener('submit', async (e) => {
     } finally {
         clearTimeout(timeout)
         SendButton.Enable()
-    }
+    }*/
 })
 
 // Focus on the input whenever key is pressed
@@ -180,7 +197,7 @@ function BotMessage(message) {
             }
 
             // scroll the page to the bottom
-            window.scroll(0, document.body.scrollHeight)
+            window.scrollTo(0, document.body.scrollHeight)
         }, 50)
     }
 }

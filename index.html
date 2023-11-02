@@ -15,7 +15,10 @@
     <meta name="theme-color" content="#0ac365" />
 
     <link rel="stylesheet" href="style.css" type="text/css" media="all" />
+
+    <!-- JAVASCRIPT LINKS -->
     <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
@@ -26,18 +29,7 @@
 
     <form class="container">
         <!--MESSAGES GOES HERE-->
-        <div class="message" id="message-wrapper">
-            <!--BOT WELCOME MESSAGE-->
-            <div class="bot_msg">
-                <img src="img/logo.png" draggable="false" alt="DaveBot Icon" />
-                <span class="bot_message">Hello! How can I assist you today?</span>
-            </div>
-
-            <!--USER WELCOME MESSAGE-->
-            <!-- <div class="user_msg">
-                <span class="user_message">Nothing much my bot friend <br><small class="msg_time">12:58am</small></span>
-            </div> -->
-        </div>
+        <div class="message" id="message-wrapper"></div>
 
         <!-- SEND MESSAGES -->
         <div class="input_bx">
