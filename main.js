@@ -83,9 +83,13 @@ Form.addEventListener('submit', (e) => {
     })
 
     response.then((res) => {
-            let result = res.json()
+            if (res.status >= 200 && res.status <= 299) {
+                let result = res.json();
 
-            BotMessage(result.data);
+                BotMessage(result.data);
+            } else {
+                BotMessage('An Error Occured!')
+            }
         })
         .catch((error) => {
             BotMessage('Error while trying to connect. \nPlease check your internet connection')
@@ -148,51 +152,35 @@ const SendButton = {
 
 // Add Bot Message
 function BotMessage(message) {
-    if (message == ('' | null | undefined)) {
-        return;
-    }
-
-    // create user message container
-    const UserMsgDiv = document.createElement('div')
-    const UserMsg = document.createElement('span')
-    const TextNode = document.createTextNode(input_value)
-    const BrElem = document.createElement('br')
-    const SmallTimeElem = document.createElement('small')
-
-    // add classes to the created elements
-    UserMsgDiv.classList.add('user_msg')
-    UserMsg.classList.add('user_message')
-    SmallTimeElem.classList.add('msg_time')
-
-    let date = new Date()
-    let hour = date.getHours()
-    let mins = date.getMinutes()
-
-    // if hours is in the afternoon
-    if (hour >= 12 && hour < 24) {
-        hour = hour / 2
-        var meridian = 'pm'
+    if (message == '' || message == null || message == undefined) {
+        return false;
     } else {
-        var meridian = 'am'
+
+        // create user message container
+        const BotMsgDiv = document.createElement('div')
+        const BotMsg = document.createElement('span')
+        const TextNode = document.createTextNode(message)
+
+        // create new Bot Image
+        const BotImage = new Image()
+        BotImage.src = 'img/logo.png'
+        BotImage.draggable = false
+        BotImage.alt = 'DaveBot Icon'
+
+        // add classes to the created elements
+        BotMsgDiv.classList.add('bot_msg')
+        BotImage.classList.add('bot_msg')
+        BotMsg.classList.add('bot_message')
+
+        BotMsg.appendChild(TextNode)
+
+        BotMsgDiv.appendChild(BotImage)
+        BotMsgDiv.appendChild(BotMsg)
+        MessageWrapper.appendChild(BotMsgDiv)
+
+
+        // scroll the page to the bottom
+        window.scrollTo(0, document.body.scrollHeight)
+        SendButton.Disabled()
     }
-
-    // if minutes is less than 10
-    if (mins < 10) {
-        mins = '0' + mins
-    }
-
-    SmallTimeElem.append(hour + ':' + mins + meridian)
-
-    UserMsg.appendChild(TextNode)
-    UserMsg.appendChild(BrElem)
-    UserMsg.appendChild(SmallTimeElem)
-
-    UserMsgDiv.appendChild(UserMsg)
-    MessageWrapper.appendChild(UserMsgDiv)
-
-
-    // scroll the page to the bottom
-    window.scrollTo(0, document.body.scrollHeight)
-    SendButton.Disabled()
-
 }
