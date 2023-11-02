@@ -13,7 +13,9 @@ Input.addEventListener('input', () => {
     }
 })
 
-Form.addEventListener('submit', (e) => {
+
+// If form is subitted
+Form.addEventListener('submit', async (e) => {
     e.preventDefault()
 
     if (Input.value == ('' | null | undefined)) {
@@ -22,61 +24,16 @@ Form.addEventListener('submit', (e) => {
     } else {
         var input_value = Input.value
         Input.value = ""
+
+        UserMessage(input_value)
+        DisableButton()
     }
-
-    // create user message container
-    const UserMsgDiv = document.createElement('div')
-    const UserMsg = document.createElement('span')
-    const TextNode = document.createTextNode(input_value)
-    const BrElem = document.createElement('br')
-    const SmallTimeElem = document.createElement('small')
-
-    // add classes to the created elements
-    UserMsgDiv.classList.add('user_msg')
-    UserMsg.classList.add('user_message')
-    SmallTimeElem.classList.add('msg_time')
-
-    let date = new Date()
-    let hour = date.getHours()
-    let mins = date.getMinutes()
-
-    // if hours is in the afternoon
-    if (hour >= 12 && hour < 24) {
-        hour = hour - 12
-        var meridian = 'pm'
-    } else {
-        var meridian = 'am'
-    }
-
-    // if hours is less than 10
-    if (hour < 10) {
-        hour = '0' + hour
-    }
-
-    // if minutes is less than 10
-    if (mins < 10) {
-        mins = '0' + mins
-    }
-
-    SmallTimeElem.append(hour + ':' + mins + meridian)
-
-    UserMsg.appendChild(TextNode)
-    UserMsg.appendChild(BrElem)
-    UserMsg.appendChild(SmallTimeElem)
-
-    UserMsgDiv.appendChild(UserMsg)
-    MessageWrapper.appendChild(UserMsgDiv)
-
-
-    // scroll the page to the bottom
-    window.scrollTo(0, document.body.scrollHeight)
-    SendButton.Disabled()
 
 
     // send request to backend
     let request = new Request('http://localhost:8000/server.php')
 
-    let response = fetch(request, {
+    let response = await fetch(request, {
         method: 'POST',
         body: JSON.stringify({
             message: input_value,
@@ -87,22 +44,27 @@ Form.addEventListener('submit', (e) => {
         }
     })
 
-    response.then((res) => {
-            if (res.status >= 200 && res.status <= 299) {
-                let result = res.json();
+    try {
+        const result = await response.json()
 
-                BotMessage(result.data);
-            } else {
-                BotMessage('An Error Occured!')
-            }
-        })
-        .catch((error) => {
-            BotMessage('Error while trying to connect. \nPlease check your internet connection')
-            console.log(error)
-        })
-        .finally(() => {
-            SendButton.Enable()
-        })
+        if (result.status === 'success') {
+            BotMessage(result.data)
+        } else {
+            BotMessage('An Error Occured!')
+        }
+
+        // catch any f**king error
+    } catch (error) {
+
+        BotMessage('Error while trying to connect. \nPlease check your internet connection')
+        console.log(error)
+
+        // finally after response
+    } finally {
+
+        SendButton.Enable()
+        DisableButton();
+    }
 })
 
 // Focus on the input whenever key is pressed
@@ -157,14 +119,14 @@ const SendButton = {
 
 // Add Bot Message
 function BotMessage(message) {
-    if (message == '' || message == null || message == undefined) {
+    if (message == ('' | null | undefined)) {
         return false;
     } else {
 
         // create user message container
         const BotMsgDiv = document.createElement('div')
         const BotMsg = document.createElement('span')
-        const TextNode = document.createTextNode(message)
+        const TextNode = new Text(message)
 
         // create new Bot Image
         const BotImage = new Image()
@@ -188,4 +150,58 @@ function BotMessage(message) {
         window.scrollTo(0, document.body.scrollHeight)
         SendButton.Disabled()
     }
+}
+
+
+// Add User Message to view
+function UserMessage(message) {
+
+    // create user message container
+    const TextNode = new Text(message)
+    const UserMsgDiv = document.createElement('div')
+    const UserMsg = document.createElement('span')
+    const BrElem = document.createElement('br')
+    const SmallTimeElem = document.createElement('small')
+
+    // add classes to the created elements
+    UserMsgDiv.classList.add('user_msg')
+    UserMsg.classList.add('user_message')
+    SmallTimeElem.classList.add('msg_time')
+
+    let date = new Date()
+    let hour = date.getHours()
+    let mins = date.getMinutes()
+
+    // if hours is in the afternoon
+    if (hour >= 12 && hour < 24) {
+        hour = hour - 12
+        var meridian = 'pm'
+    } else {
+        var meridian = 'am'
+    }
+
+    // if hours is less than 10
+    if (hour < 10) {
+        hour = '0' + hour
+    }
+
+    // if minutes is less than 10
+    if (mins < 10) {
+        mins = '0' + mins
+    }
+
+    SmallTimeElem.append(hour + ':' + mins + meridian)
+
+    UserMsg.appendChild(TextNode)
+    UserMsg.appendChild(BrElem)
+    UserMsg.appendChild(SmallTimeElem)
+
+    UserMsgDiv.appendChild(UserMsg)
+    MessageWrapper.appendChild(UserMsgDiv)
+
+
+    // scroll the page to the bottom
+    window.scrollTo(0, document.body.scrollHeight)
+    SendButton.Disabled()
+
 }
