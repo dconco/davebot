@@ -7,7 +7,7 @@ const Input = document.getElementById('input')
 
 Input.addEventListener('input', () => {
     if (Input.value != ('' | null | undefined) && IconType() !== 'LoaderIcon') {
-        EnableButton();
+        EnableButton()
     } else {
         DisableButton()
     }
@@ -20,7 +20,7 @@ Form.addEventListener('submit', async (e) => {
 
     if (Input.value == ('' | null | undefined)) {
         alert('You haven\'t written any message!')
-        return;
+        return
     } else {
         var input_value = Input.value
         Input.value = ""
@@ -139,13 +139,13 @@ const SendButton = {
 // Add Bot Message
 function BotMessage(message) {
     if (message == ('' | null | undefined)) {
-        return false;
+        return false
     } else {
 
         // create user message container
         const BotMsgDiv = document.createElement('div')
         const BotMsg = document.createElement('span')
-        const TextNode = new Text(message)
+        // const TextNode = new Text(message)
 
         // create new Bot Image
         const BotImage = new Image()
@@ -158,10 +158,10 @@ function BotMessage(message) {
         BotImage.classList.add('bot_msg')
         BotMsg.classList.add('bot_message')
 
-        BotMsg.appendChild(TextNode)
+        BotMsg.innerHTML = message
 
-        let botInnerMsg = BotMsg.innerHTML;
-        BotMsg.innerHTML = '';
+        let botInnerMsg = BotMsg.innerHTML
+        BotMsg.innerHTML = ''
 
         BotMsgDiv.appendChild(BotImage)
         BotMsgDiv.appendChild(BotMsg)
@@ -180,7 +180,7 @@ function BotMessage(message) {
             }
 
             // scroll the page to the bottom
-            window.scrollTo(0, document.body.scrollHeight)
+            window.scroll(0, document.body.scrollHeight)
         }, 50)
     }
 }
