@@ -6,7 +6,7 @@ DisableButton()
 const Input = document.getElementById('input')
 
 Input.addEventListener('input', () => {
-    if (Input.value != ('' | null | undefined)) {
+    if (Input.value != ('' | null | undefined) && IconType() !== 'LoaderIcon') {
         EnableButton();
     } else {
         DisableButton()
@@ -26,15 +26,26 @@ Form.addEventListener('submit', async (e) => {
         Input.value = ""
 
         UserMessage(input_value)
-        DisableButton()
     }
 
 
-    // send request to backend
+    const controller = new AbortController()
+    const signal = controller.signal
+
     let request = new Request('http://localhost:8000/server.php')
 
+    // Cancel request if it takes too long
+    setTimeout(() => {
+        SendButton.Enable()
+        controller.abort()
+        BotMessage('Response taking too long, check your connection and try again')
+    }, 10000)
+
+
+    // Send POST Request to the Server
     let response = await fetch(request, {
         method: 'POST',
+        signal: signal,
         body: JSON.stringify({
             message: input_value,
             origin: location.host
@@ -63,7 +74,6 @@ Form.addEventListener('submit', async (e) => {
     } finally {
 
         SendButton.Enable()
-        DisableButton();
     }
 })
 
@@ -89,6 +99,15 @@ function EnableButton() {
     Button.disabled = false
     Button.style.cursor = 'cursor'
     Button.style.background = '#2ec6ee'
+}
+
+function IconType() {
+    let icon = document.getElementById('send-icon')
+    if (icon.getAttribute('icon') === 'eos-icons:three-dots-loading') {
+        return 'LoaderIcon'
+    } else {
+        return 'SendIcon'
+    }
 }
 
 // Enable or disable Button and loader
@@ -148,7 +167,7 @@ function BotMessage(message) {
 
         // scroll the page to the bottom
         window.scrollTo(0, document.body.scrollHeight)
-        SendButton.Disabled()
+        SendButton.Enable()
     }
 }
 
