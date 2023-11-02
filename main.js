@@ -160,14 +160,29 @@ function BotMessage(message) {
 
         BotMsg.appendChild(TextNode)
 
+        let botInnerMsg = BotMsg.innerHTML;
+        BotMsg.innerHTML = '';
+
         BotMsgDiv.appendChild(BotImage)
         BotMsgDiv.appendChild(BotMsg)
         MessageWrapper.appendChild(BotMsgDiv)
 
+        // Write the message to the user fluently
+        var i = 0
+        var interval = setInterval(() => {
+            BotMsg.innerHTML += botInnerMsg[i]
+
+            if (i < botInnerMsg.length - 1) {
+                i++
+            } else {
+                clearInterval(interval)
+                return false
+            }
+        }, 80)
+
 
         // scroll the page to the bottom
         window.scrollTo(0, document.body.scrollHeight)
-        SendButton.Enable()
     }
 }
 
