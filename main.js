@@ -42,10 +42,15 @@ Form.addEventListener('submit', (e) => {
 
     // if hours is in the afternoon
     if (hour >= 12 && hour < 24) {
-        hour = hour / 2
+        hour = hour - 12
         var meridian = 'pm'
     } else {
         var meridian = 'am'
+    }
+
+    // if hours is less than 10
+    if (hour < 10) {
+        hour = '0' + hour
     }
 
     // if minutes is less than 10
