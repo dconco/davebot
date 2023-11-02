@@ -46,7 +46,6 @@ Form.addEventListener('submit', async (e) => {
     let response = await fetch(request, {
         method: 'POST',
         signal: signal,
-        mode: 'cors'
         body: JSON.stringify({
             message: input_value,
             origin: location.host
