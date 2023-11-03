@@ -32,7 +32,7 @@ Form.addEventListener('submit', async (e) => {
     }
 
 
-    const url = 'http://localhost/projects/dave_ai/server.php'
+    const url = 'https://davebot.infinityfreeapp.com/server.php'
     const controller = new AbortController()
 
     // cancel request if it's more than 20 seconds
