@@ -33,19 +33,31 @@ Form.addEventListener('submit', async (e) => {
 
 
     const url = 'http://localhost/projects/dave_ai/server.php'
+    const controller = new AbortController()
 
-    // Send a POST request
+    // cancel request if it's more than 20 seconds
+    var timeout = setTimeout(() => {
+        controller.abort()
+        SendButton.Enable()
+        BotMessage('Request taking too long. Check your connection and try again')
+    }, 20000)
+
+    // Send a POST request to server
     const response = await axios({
         url: url,
         method: 'POST',
+        signal: controller.signal,
+
         data: JSON.stringify({
             message: input_value,
             origin: 'http://localhost/'
         }),
+
         headers: {
             'Content-Type': 'application/json',
         }
     })
+
 
     try {
         const result = await response
@@ -53,7 +65,7 @@ Form.addEventListener('submit', async (e) => {
         if (result.data.status === 'success') {
             BotMessage(result.data.data)
         } else {
-            BotMessage('Not able to get message - Response Text: ' + result.statusText)
+            BotMessage('Not able to get message - Response Text: ' + result.request.statusText)
         }
 
         // catch any f**king error
@@ -64,7 +76,7 @@ Form.addEventListener('submit', async (e) => {
 
         // finally after response
     } finally {
-        // clearTimeout(timeout)
+        clearTimeout(timeout)
         SendButton.Enable()
     }
 
