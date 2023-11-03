@@ -32,53 +32,28 @@ Form.addEventListener('submit', async (e) => {
     }
 
 
-    const url = 'http://127.0.0.1:8000/server.php'
+    const url = 'http://localhost/projects/dave_ai/server.php'
 
     // Send a POST request
-    const response = await axios.post(url, {
-        // signal: AbortSignal.timeout(5000),
+    const response = await axios({
+        url: url,
+        method: 'POST',
         data: JSON.stringify({
             message: input_value,
-            origin: location.host
+            origin: 'http://localhost/'
         }),
         headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
         }
     })
 
     try {
-        const result = response
+        const result = await response
 
-        console.log(result)
-    } catch (error) {
-        BotMessage('There was an uncaught Error: ' + error.message)
-        console.log(error)
-    }
-
-
-
-
-    // Send POST Request to the Server
-    /*let response = await fetch(request, {
-        method: 'POST',
-        signal: signal,
-        mode: 'no-cors',
-        body: JSON.stringify({
-            message: input_value,
-            origin: location.host
-        }),
-        headers: {
-            "Content-Type": "Application/json",
-        }
-    })
-
-    try {
-        const result = await response.json()
-
-        if (result.status === 'success') {
-            BotMessage(result.data)
+        if (result.data.status === 'success') {
+            BotMessage(result.data.data)
         } else {
-            BotMessage('An Error Occured!')
+            BotMessage('Not able to get message - Response Text: ' + result.statusText)
         }
 
         // catch any f**king error
@@ -89,9 +64,10 @@ Form.addEventListener('submit', async (e) => {
 
         // finally after response
     } finally {
-        clearTimeout(timeout)
+        // clearTimeout(timeout)
         SendButton.Enable()
-    }*/
+    }
+
 })
 
 // Focus on the input whenever key is pressed
