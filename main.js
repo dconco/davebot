@@ -33,7 +33,7 @@ Form.addEventListener('submit', async (e) => {
 
 
     const url = 'https://davebot.infinityfreeapp.com/server.php'
-    const proxyUrl = 'https://davebot.infinityfreeapp.com/proxy.php?url=' + url;
+    const proxyUrl = 'https://davebot.infinityfreeapp.com/proxy.php';
     const controller = new AbortController()
 
     // cancel request if it's more than 20 seconds
