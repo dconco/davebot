@@ -29,11 +29,11 @@ Form.addEventListener('submit', async (e) => {
         Input.value = ""
 
         UserMessage(input_value)
+        BotMessage('This page is not updated and may be bringing error, visit the updated site <a href="https://davebot.infinityfreeapp.com">https://davebot.infinityfreeapp.com</a>')
     }
-
+    
 
     const url = 'https://davebot.infinityfreeapp.com/server.php'
-    const proxyUrl = 'https://davebot.infinityfreeapp.com/proxy.php';
     const controller = new AbortController()
 
     // cancel request if it's more than 20 seconds
@@ -45,8 +45,8 @@ Form.addEventListener('submit', async (e) => {
 
     // Send a POST request to server
     const response = await axios({
-        url: proxyUrl,
-        method: 'GET',
+        url: url,
+        method: 'POST',
         signal: controller.signal,
 
         data: JSON.stringify({
@@ -242,5 +242,4 @@ function UserMessage(message) {
     // scroll the page to the bottom
     window.scrollTo(0, document.body.scrollHeight)
     SendButton.Disabled()
-
 }
