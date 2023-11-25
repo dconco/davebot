@@ -46,7 +46,7 @@ Form.addEventListener('submit', async (e) => {
     // Send a POST request to server
     const response = await axios({
         url: proxyUrl,
-        method: 'POST',
+        method: 'GET',
         signal: controller.signal,
 
         data: JSON.stringify({
