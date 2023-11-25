@@ -147,7 +147,6 @@ function BotMessage(message) {
     if (message == ('' | null | undefined)) {
         return false
     } else {
-
         // create user message container
         const BotMsgDiv = document.createElement('div')
         const BotMsg = document.createElement('span')
