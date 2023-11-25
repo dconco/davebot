@@ -29,7 +29,7 @@ Form.addEventListener('submit', async (e) => {
         Input.value = ""
 
         UserMessage(input_value)
-        BotMessage('This page is not updated and may be bringing error, visit the updated site <a href="https://davebot.infinityfreeapp.com">https://davebot.infinityfreeapp.com</a>')
+        BotMessage('This page is not updated and may be bringing error, visit the updated site https://davebot.infinityfreeapp.com')
     }
     
 
