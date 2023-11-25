@@ -33,6 +33,7 @@ Form.addEventListener('submit', async (e) => {
 
 
     const url = 'https://davebot.infinityfreeapp.com/server.php'
+    const proxyUrl = 'https://davebot.infinityfreeapp.com/proxy.php?url=' + encodeURIComponent(url);
     const controller = new AbortController()
 
     // cancel request if it's more than 20 seconds
@@ -44,7 +45,7 @@ Form.addEventListener('submit', async (e) => {
 
     // Send a POST request to server
     const response = await axios({
-        url: url,
+        url: proxyUrl,
         method: 'POST',
         signal: controller.signal,
 
